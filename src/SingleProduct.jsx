@@ -1,64 +1,64 @@
 function SingleProduct() {
 	return (
 		<div className="single-product-container">
-			<section class="single-product">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-5">
-							<div class="single-product-slider">
+			<section className="single-product">
+				<div className="container">
+					<div className="row">
+						<div className="col-md-5">
+							<div className="single-product-slider">
 								<div
-									class="carousel slide"
+									className="carousel slide"
 									data-ride="carousel"
 									id="single-product-slider"
 								>
-									<div class="carousel-inner">
-										<div class="carousel-item active">
+									<div className="carousel-inner">
+										<div className="carousel-item active">
 											<img
 												src="../assets/images/product-3.jpg"
 												alt=""
-												class="img-fluid"
+												className="img-fluid"
 											/>
 										</div>
-										<div class="carousel-item">
+										<div className="carousel-item">
 											<img
 												src="../assets/images/product-2.jpg"
 												alt=""
-												class="img-fluid"
+												className="img-fluid"
 											/>
 										</div>
-										<div class="carousel-item ">
+										<div className="carousel-item ">
 											<img
 												src="../assets/images/product-1.jpg"
 												alt=""
-												class="img-fluid"
+												className="img-fluid"
 											/>
 										</div>
 									</div>
 
-									<ol class="carousel-indicators">
+									<ol className="carousel-indicators">
 										<li
 											data-target="#single-product-slider"
 											data-slide-to="0"
-											class="active"
+											className="active"
 										>
 											<img
 												src="../assets/images/product-3.jpg"
 												alt=""
-												class="img-fluid"
+												className="img-fluid"
 											/>
 										</li>
 										<li data-target="#single-product-slider" data-slide-to="1">
 											<img
 												src="../assets/images/product-2.jpg"
 												alt=""
-												class="img-fluid"
+												className="img-fluid"
 											/>
 										</li>
 										<li data-target="#single-product-slider" data-slide-to="2">
 											<img
 												src="../assets/images/product-1.jpg"
 												alt=""
-												class="img-fluid"
+												className="img-fluid"
 											/>
 										</li>
 									</ol>
@@ -66,32 +66,32 @@ function SingleProduct() {
 							</div>
 						</div>
 
-						<div class="col-md-7">
-							<div class="single-product-details mt-5 mt-lg-0">
+						<div className="col-md-7">
+							<div className="single-product-details mt-5 mt-lg-0">
 								<h2>Eclipse Crossbody</h2>
-								<div class="sku_wrapper mb-4">
-									SKU: <span class="text-muted">AB1563456789 </span>
+								<div className="sku_wrapper mb-4">
+									SKU: <span className="text-muted">AB1563456789 </span>
 								</div>
 
 								<hr />
 
-								<h3 class="product-price">
+								<h3 className="product-price">
 									$300 <del>$119.90</del>
 								</h3>
 
-								<p class="product-description my-4 ">
+								<p className="product-description my-4 ">
 									Lorem ipsum dolor sit amet, consectetur adipisicing elit.
 									Laborum ipsum dicta quod, quia doloremque aut deserunt commodi
 									quis. Totam a consequatur beatae nostrum, earum consequuntur?
 									Eveniet consequatur ipsum dicta recusandae.
 								</p>
 
-								<form class="cart" action="#" method="post">
-									<div class="quantity d-flex align-items-center">
+								<form className="cart" action="#" method="post">
+									<div className="quantity d-flex align-items-center">
 										<input
 											type="number"
 											id="#"
-											class="input-text qty text form-control w-25 mr-3"
+											className="input-text qty text form-control w-25 mr-3"
 											step="1"
 											min="1"
 											max="9"
@@ -100,15 +100,15 @@ function SingleProduct() {
 											title="Qty"
 											size="4"
 										/>
-										<a href="#" class="btn btn-main btn-small">
+										<a href="#" className="btn btn-main btn-small">
 											Add to cart
 										</a>
 									</div>
 								</form>
 
-								<div class="products-meta mt-4">
-									<div class="product-category d-flex align-items-center">
-										<span class="font-weight-bold text-capitalize product-meta-title">
+								<div className="products-meta mt-4">
+									<div className="product-category d-flex align-items-center">
+										<span className="font-weight-bold text-capitalize product-meta-title">
 											Categories :
 										</span>
 										<a href="#">Products , </a>
@@ -119,12 +119,16 @@ function SingleProduct() {
 						</div>
 					</div>
 
-					<div class="row">
-						<div class="col-lg-12">
-							<nav class="product-info-tabs wc-tabs mt-5 mb-5">
-								<div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+					<div className="row">
+						<div className="col-lg-12">
+							<nav className="product-info-tabs wc-tabs mt-5 mb-5">
+								<div
+									className="nav nav-tabs nav-fill"
+									id="nav-tab"
+									role="tablist"
+								>
 									<a
-										class="nav-item nav-link active"
+										className="nav-item nav-link active"
 										id="nav-home-tab"
 										data-toggle="tab"
 										href="#nav-home"
@@ -137,9 +141,9 @@ function SingleProduct() {
 								</div>
 							</nav>
 
-							<div class="tab-content" id="nav-tabContent">
+							<div className="tab-content" id="nav-tabContent">
 								<div
-									class="tab-pane fade show active"
+									className="tab-pane fade show active"
 									id="nav-home"
 									role="tabpanel"
 									aria-labelledby="nav-home-tab"
@@ -154,7 +158,7 @@ function SingleProduct() {
 
 									<h4>Product Features</h4>
 
-									<ul class="">
+									<ul className="">
 										<li>
 											Mapped with 3M™ Thinsulate™ Insulation [40G Body / Sleeves
 											/ Hood]

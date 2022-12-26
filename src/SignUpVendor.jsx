@@ -1,56 +1,56 @@
 function SignUpVendor() {
 	return (
 		<div className="signUp-container">
-			<div class="account section">
-				<div class="container">
-					<div class="row justify-content-center">
-						<div class="col-lg-6">
-							<div class="login-form border p-5">
-								<div class="text-center heading">
-									<h2 class="mb-2">Sign Up</h2>
-									<p class="lead">
+			<div className="account section">
+				<div className="container">
+					<div className="row justify-content-center">
+						<div className="col-lg-6">
+							<div className="login-form border p-5">
+								<div className="text-center heading">
+									<h2 className="mb-2">Sign Up</h2>
+									<p className="lead">
 										Already have an account? <a href="/login"> Login now</a>
 									</p>
 								</div>
 
 								<form action="#">
-									<div class="form-group mb-4">
-										<label for="#">Enter Email Address</label>
+									<div className="form-group mb-4">
+										<label htmlFor="#">Enter Email Address</label>
 										<input
 											type="text"
-											class="form-control"
+											className="form-control"
 											placeholder="Enter Email Address"
 										/>
 									</div>
-									<div class="form-group mb-4">
-										<label for="#">Enter username</label>
-										<a class="float-right" href="">
+									<div className="form-group mb-4">
+										<label htmlFor="#">Enter username</label>
+										<a className="float-right" href="">
 											Forget password?
 										</a>
 										<input
 											type="text"
-											class="form-control"
+											className="form-control"
 											placeholder="Enter Password"
 										/>
 									</div>
-									<div class="form-group mb-4">
-										<label for="#">Enter Password</label>
+									<div className="form-group mb-4">
+										<label htmlFor="#">Enter Password</label>
 										<input
 											type="text"
-											class="form-control"
+											className="form-control"
 											placeholder="Enter Password"
 										/>
 									</div>
-									<div class="form-group">
-										<label for="#">Confirm Password</label>
+									<div className="form-group">
+										<label htmlFor="#">Confirm Password</label>
 										<input
 											type="text"
-											class="form-control"
+											className="form-control"
 											placeholder="Confirm Password"
 										/>
 									</div>
 
-									<a href="#" class="btn btn-main mt-3 btn-block">
+									<a href="#" className="btn btn-main mt-3 btn-block">
 										Signup
 									</a>
 								</form>
