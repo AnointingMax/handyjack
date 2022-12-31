@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getFromStorage } from "../constants";
+import { fireSwalError, getFromStorage } from "../constants";
 
 const api = axios.create({
 	baseURL:
@@ -27,6 +27,8 @@ api.interceptors.response.use(
 			localStorage.removeItem("token");
 			localStorage.removeItem("user");
 			window.location.reload();
+		} else {
+			fireSwalError(error.response.data);
 		}
 	}
 );

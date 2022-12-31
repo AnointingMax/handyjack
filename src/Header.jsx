@@ -20,7 +20,7 @@ function Header() {
 		>
 			<div className="container">
 				<Link className="navbar-brand font-weight-bold" to={{ pathname: "/" }}>
-					HandyManJack
+					MarketPlace
 				</Link>
 				<button
 					className="navbar-toggler"

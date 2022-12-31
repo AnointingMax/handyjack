@@ -166,6 +166,7 @@ function Checkout() {
 
 									<div className="info mt-4 border-top pt-4 mb-5">
 										<h3>Account Details</h3>
+										<p>Phone Number: {store?.phone}</p>
 										<p>Account Number: {store?.accountNumber}</p>
 										<p>Account Bank: {banks[store?.accountBank]}</p>
 										<p>Account Name: {store?.accountName}</p>

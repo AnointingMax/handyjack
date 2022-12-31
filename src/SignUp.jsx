@@ -14,6 +14,7 @@ function SignUp() {
 		email: "",
 		userName: "",
 		password: "",
+		phone: "",
 		confirm: "",
 	};
 	const validationSchema = Yup.object().shape({
@@ -21,6 +22,9 @@ function SignUp() {
 			.email("Please provide a valid email")
 			.required("Email is required"),
 		userName: Yup.string().required("Username is required"),
+		phone: Yup.string()
+			.length(11, "Please provide a valid phone number")
+			.required("Phone number is required"),
 		password: Yup.string().required("Password is required"),
 		confirm: Yup.string()
 			.required("Confirm password is required")
@@ -94,6 +98,22 @@ function SignUp() {
 														component="div"
 														className="text-danger"
 														name="userName"
+													/>
+												</div>
+												<div className="form-group mb-4">
+													<label>Enter phone number</label>
+													<input
+														type="text"
+														className="form-control"
+														placeholder="Enter phone number"
+														name="phone"
+														value={values.phone}
+														onChange={handleChange}
+													/>
+													<ErrorMessage
+														component="div"
+														className="text-danger"
+														name="phone"
 													/>
 												</div>
 												<div className="form-group mb-4">

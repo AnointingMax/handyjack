@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { fetchAccountName, registerShop } from "./api";
-import { banks, fireSwalMessage } from "./constants";
+import { banks, fireSwalError, fireSwalMessage } from "./constants";
 
 function SignUpVendor() {
 	const navigate = useNavigate();
@@ -12,6 +12,7 @@ function SignUpVendor() {
 	const initialValues = {
 		email: "",
 		userName: "",
+		phone: "",
 		accountNumber: "",
 		accountBank: "",
 		accountName: "",
@@ -23,6 +24,9 @@ function SignUpVendor() {
 			.email("Please provide a valid email")
 			.required("Email is required"),
 		userName: Yup.string().required("Username is required"),
+		phone: Yup.string()
+			.length(11, "Please provide a valid phone number")
+			.required("Phone number is required"),
 		accountNumber: Yup.string()
 			.length(10, "Enter a valid account number")
 			.required("Account number is required"),
@@ -35,8 +39,8 @@ function SignUpVendor() {
 	});
 
 	const { isLoading, mutate } = useMutation(registerShop, {
-		onSuccess: () => {
-			fireSwalMessage().then(() => navigate("/"));
+		onSuccess: (data) => {
+			fireSwalMessage(data).then(() => navigate("/"));
 		},
 	});
 
@@ -96,6 +100,22 @@ function SignUpVendor() {
 														component="div"
 														className="text-danger"
 														name="userName"
+													/>
+												</div>
+												<div className="form-group mb-4">
+													<label>Enter phone number</label>
+													<input
+														type="text"
+														className="form-control"
+														placeholder="Enter phone number"
+														name="phone"
+														value={values.phone}
+														onChange={handleChange}
+													/>
+													<ErrorMessage
+														component="div"
+														className="text-danger"
+														name="phone"
 													/>
 												</div>
 												<div className="form-group mb-4">
