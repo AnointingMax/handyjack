@@ -1,15 +1,22 @@
 import { useMutation } from "@tanstack/react-query";
 import { Formik, ErrorMessage } from "formik";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { logIn } from "./api";
+import { setToStorage } from "./constants";
+import { useAppContext } from "./context/AppContext";
 
 function Login() {
+	const { setUser, setIsLoggedIn, isLoggedIn } = useAppContext();
+	const navigate = useNavigate();
+	const location = useLocation();
+
 	const initialValues = {
-		identifier: "",
+		email: "",
 		password: "",
 	};
 	const validationSchema = Yup.object().shape({
-		identifier: Yup.string()
+		email: Yup.string()
 			.email("Please provide a valid email")
 			.required("Email is required"),
 		password: Yup.string().required("Password is required"),
@@ -17,9 +24,19 @@ function Login() {
 
 	const { isLoading, mutate } = useMutation(logIn, {
 		onSuccess: (data) => {
-			console.log(data);
+			setToStorage("token", data.token);
+			setToStorage("user", data.user);
+			setIsLoggedIn(data.token);
+			setUser(data.user);
+
+			const origin = location.state?.from?.pathname || "/";
+			navigate(origin);
 		},
 	});
+
+	if (isLoggedIn) {
+		return <Navigate to="/" />;
+	}
 
 	return (
 		<div className="login-container">
@@ -31,7 +48,8 @@ function Login() {
 								<div className="text-center heading">
 									<h2 className="mb-2">Login</h2>
 									<p className="lead">
-										Don’t have an account? <a href="#">Create a free account</a>
+										Don’t have an account?{" "}
+										<Link to="/signup">Create a free account</Link>
 									</p>
 								</div>
 								<Formik
@@ -49,22 +67,22 @@ function Login() {
 													<input
 														type="email"
 														className="form-control"
-														name="identifier"
+														name="email"
 														placeholder="Enter email"
-														value={values.identifier}
+														value={values.email}
 														onChange={handleChange}
 													/>
 													<ErrorMessage
 														component="div"
 														className="text-danger"
-														name="identifier"
+														name="email"
 													/>
 												</div>
 												<div className="form-group">
 													<label htmlFor="#">Enter Password</label>
-													<a className="float-right" href="">
+													<Link className="float-right" to="/forgot-password">
 														Forget password?
-													</a>
+													</Link>
 													<input
 														type="password"
 														className="form-control"

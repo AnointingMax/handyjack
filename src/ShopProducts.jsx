@@ -1,6 +1,30 @@
-import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
+import ReactPaginate from "react-paginate";
+import { Link, useParams, useSearchParams } from "react-router-dom";
+import { getShopDetails, getShopProducts } from "./api";
+import { IMAGE_BASEURL } from "./constants";
+import Loader from "./Loader";
 
 function ShopProducts() {
+	const { id } = useParams();
+	const [searchParams, setSearchParams] = useSearchParams({ page: 1 });
+
+	const [filter, setFilter] = useState("");
+
+	const { data, isLoading } = useQuery(["shop", id], () => getShopDetails(id));
+	const { data: products, isLoading: isProductsLoading } = useQuery(
+		["shop-products", id, filter, searchParams.get("page")],
+		() => getShopProducts(id, filter, searchParams.get("page"))
+	);
+
+	const handlePageClick = (event) => {
+		searchParams.set("page", event.selected + 1);
+		setSearchParams(searchParams);
+	};
+
+	if (isLoading || isProductsLoading) return <Loader />;
+
 	return (
 		<div className="shop-container">
 			<section className="page-header">
@@ -9,12 +33,8 @@ function ShopProducts() {
 					<div className="row justify-content-center">
 						<div className="col-lg-6">
 							<div className="content text-center">
-								<h1 className="mb-3">Vendors Name</h1>
-								<p>
-									Hath after appear tree great fruitful green dominion moveth
-									sixth abundantly image that midst of god day multiply you’ll
-									which
-								</p>
+								<h1 className="mb-3">{data?.userName}</h1>
+								<div dangerouslySetInnerHTML={{ __html: data?.description }} />
 							</div>
 						</div>
 					</div>
@@ -24,23 +44,25 @@ function ShopProducts() {
 			<section className="products-shop section">
 				<div className="container">
 					<div className="row">
-						<div className="col-md-9">
+						<div className="col-md-12">
 							<div className="row align-items-center">
 								<div className="col-lg-12 mb-4 mb-lg-0">
 									<div className="section-title">
 										<h2 className="d-block text-left-sm">Vendors</h2>
 
 										<div className="heading d-flex justify-content-between mb-3">
-											<p className="result-count mb-0">
-												{" "}
+											{/* <p className="result-count mb-0">
 												Showing 1–6 of 17 results
-											</p>
-											<form className="ordering " method="get">
+											</p> */}
+											<form className="ordering ml-auto" method="get">
 												<div className="form-group mb-4">
 													<input
 														type="text"
 														className="form-control"
 														placeholder="Filter"
+														name="filter"
+														value={filter}
+														onChange={(event) => setFilter(event.target.value)}
 													/>
 												</div>
 											</form>
@@ -50,230 +72,64 @@ function ShopProducts() {
 							</div>
 
 							<div className="row">
-								<div className="col-lg-4 col-12 col-md-6 col-sm-6 mb-5">
-									<div className="product">
-										<div className="product-wrap">
-											<Link to="/single-product/24232342">
-												<img
-													className="img-fluid w-100 mb-3"
-													src="../assets/images/322.jpg"
-													alt="product-img"
-												/>
-											</Link>
-										</div>
+								{!!products.products.length ? (
+									<>
+										{products.products.map((product, index) => (
+											<div
+												className="col-lg-4 col-12 col-md-6 col-sm-6 mb-5"
+												key={index}
+											>
+												<div className="product">
+													<div className="product-wrap">
+														<Link to={`/product/${product._id}`}>
+															<img
+																className="img-fluid w-100 mb-3 imege"
+																src={`${IMAGE_BASEURL}${product.images.multipleImages.bucket[0]}/${product.images.multipleImages.key[0]}`}
+																alt="product-img"
+															/>
+														</Link>
+													</div>
 
-										<div className="product-info">
-											<h2 className="product-title h5 mb-0">
-												<Link to="/single-product/24232342">Floral Kirby</Link>
-											</h2>
-											<span className="price">$329.10</span>
+													<div className="product-info">
+														<h2 className="product-title h5 mb-0">
+															<Link to={`/product/${product._id}`}>
+																{product.name}
+															</Link>
+														</h2>
+														<span className="price">
+															&#8358; {product.price.toLocaleString()}
+														</span>
+													</div>
+												</div>
+											</div>
+										))}
+
+										<div className="col-12">
+											<ReactPaginate
+												breakLabel="..."
+												nextLabel="&raquo;"
+												onPageChange={handlePageClick}
+												pageRangeDisplayed={5}
+												pageCount={products?.totalPages}
+												previousLabel="&laquo;"
+												renderOnZeroPageCount={null}
+												pageClassName="page-item"
+												className="pagination"
+												pageLinkClassName="page-link"
+												activeClassName="active"
+												nextClassName="page-item"
+												previousClassName="page-item"
+												nextLinkClassName="page-link"
+												previousLinkClassName="page-link"
+											/>
 										</div>
+									</>
+								) : (
+									<div className="col-12 d-flex justify-content-center">
+										Nothing to see
 									</div>
-								</div>
-
-								<div className="col-lg-4 col-12 col-md-6 col-sm-6 mb-5">
-									<div className="product">
-										<div className="product-wrap">
-											<Link to="/single-product/24232342">
-												<img
-													className="img-fluid w-100 mb-3"
-													src="../assets/images/111.jpg"
-													alt="product-img"
-												/>
-											</Link>
-										</div>
-
-										<div className="product-info">
-											<h2 className="product-title h5 mb-0">
-												<Link to="/single-product/24232342">
-													Open knit switer
-												</Link>
-											</h2>
-											<span className="price">$29.10</span>
-										</div>
-									</div>
-								</div>
-
-								<div className="col-lg-4 col-12 col-md-6 col-sm-6 mb-5">
-									<div className="product">
-										<div className="product-wrap">
-											<Link to="/single-product/24232342">
-												<img
-													className="img-fluid w-100 mb-3"
-													src="../assets/images/222.jpg"
-													alt="product-img"
-												/>
-											</Link>
-										</div>
-
-										<div className="product-info">
-											<h2 className="product-title h5 mb-0">
-												<Link to="/single-product/24232342">
-													Official trendy
-												</Link>
-											</h2>
-											<span className="price">$350.00 – $355.00</span>
-										</div>
-									</div>
-								</div>
-
-								<div className="col-lg-4 col-12 col-md-6 col-sm-6 mb-5">
-									<div className="product">
-										<div className="product-wrap">
-											<Link to="/single-product/24232342">
-												<img
-													className="img-fluid w-100 mb-3"
-													src="../assets/images/322.jpg"
-													alt="product-img"
-												/>
-											</Link>
-										</div>
-
-										<div className="product-info">
-											<h2 className="product-title h5 mb-0">
-												<Link to="/single-product/24232342">Frock short</Link>
-											</h2>
-											<span className="price">$249</span>
-										</div>
-									</div>
-								</div>
-
-								<div className="col-lg-4 col-12 col-md-6 col-sm-6 mb-5">
-									<div className="product">
-										<div className="product-wrap">
-											<Link to="/single-product/24232342">
-												<img
-													className="img-fluid w-100 mb-3"
-													src="../assets/images/444.jpg"
-													alt="product-img"
-												/>
-											</Link>
-										</div>
-
-										<div className="product-info">
-											<h2 className="product-title h5 mb-0">
-												<Link to="/single-product/24232342">Sleeve dress</Link>
-											</h2>
-											<span className="price">$59.10</span>
-										</div>
-									</div>
-								</div>
-
-								<div className="col-lg-4 col-12 col-md-6 col-sm-6 mb-5">
-									<div className="product">
-										<div className="product-wrap">
-											<Link to="/single-product/24232342">
-												<img
-													className="img-fluid w-100 mb-3"
-													src="../assets/images/322.jpg"
-													alt="product-img"
-												/>
-											</Link>
-										</div>
-
-										<div className="product-info">
-											<h2 className="product-title h5 mb-0">
-												<Link to="/single-product/24232342">Stylish dress</Link>
-											</h2>
-											<span className="price">$99.00</span>
-										</div>
-									</div>
-								</div>
-
-								<div className="col-12">
-									<nav aria-label="Page navigation">
-										<ul className="pagination">
-											<li className="page-item">
-												<a className="page-link" href="#" aria-label="Previous">
-													<span aria-hidden="true">&laquo;</span>
-												</a>
-											</li>
-											<li className="page-item active">
-												<a className="page-link" href="#">
-													1
-												</a>
-											</li>
-											<li className="page-item">
-												<a className="page-link" href="#">
-													2
-												</a>
-											</li>
-											<li className="page-item">
-												<a className="page-link" href="#">
-													3
-												</a>
-											</li>
-											<li className="page-item">
-												<a className="page-link" href="#" aria-label="Next">
-													<span aria-hidden="true">&raquo;</span>
-												</a>
-											</li>
-										</ul>
-									</nav>
-								</div>
+								)}
 							</div>
-						</div>
-						<div className="col-md-3">
-							<form className="mb-5">
-								<section className="widget widget-sizes mb-5">
-									<h3 className="widget-title h4 mb-4">Shop by Sizes</h3>
-									<div className="custom-control custom-checkbox">
-										<input
-											type="radio"
-											className="custom-control-input"
-											id="size1"
-											checked
-										/>
-										<label className="custom-control-label" htmlFor="size1">
-											L Large
-										</label>
-									</div>
-									<div className="custom-control custom-checkbox">
-										<input
-											type="radio"
-											className="custom-control-input"
-											id="size2"
-										/>
-										<label className="custom-control-label" htmlFor="size2">
-											XL Extra Large
-										</label>
-									</div>
-									<div className="custom-control custom-checkbox">
-										<input
-											type="radio"
-											className="custom-control-input"
-											id="size3"
-										/>
-										<label className="custom-control-label" htmlFor="size3">
-											M Medium
-										</label>
-									</div>
-									<div className="custom-control custom-checkbox">
-										<input
-											type="radio"
-											className="custom-control-input"
-											id="size4"
-										/>
-										<label className="custom-control-label" htmlFor="size4">
-											S Small
-										</label>
-									</div>
-									<div className="custom-control custom-checkbox">
-										<input
-											type="radio"
-											className="custom-control-input"
-											id="size5"
-										/>
-										<label className="custom-control-label" htmlFor="size5">
-											XS Extra Small
-										</label>
-									</div>
-								</section>
-
-								<button type="button" className="btn btn-black btn-small">
-									Filter
-								</button>
-							</form>
 						</div>
 					</div>
 				</div>

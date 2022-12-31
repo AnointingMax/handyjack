@@ -16,9 +16,10 @@ import {
 	Outlet,
 	useNavigate,
 } from "react-router-dom";
-import { useAppContext } from "./context/AppContext";
-import { useLayoutEffect } from "react";
 import ShopProducts from "./ShopProducts";
+import Category from "./Category";
+import { useAppContext } from "./context/AppContext";
+import { useEffect } from "react";
 
 function App() {
 	return (
@@ -26,14 +27,15 @@ function App() {
 			<BrowserRouter>
 				<Header />
 				<Routes>
+					<Route index element={<Home />} />
+					<Route path="vendors" element={<Shop />} />
+					<Route path="vendors/:id" element={<ShopProducts />} />
+					<Route path="category/:id" element={<Category />} />
+					<Route path="product/:id" element={<SingleProduct />} />
 					<Route path="/" element={<AuthWrapper />}>
-						<Route index element={<Home />} />
-						<Route path="vendors" element={<Shop />} />
-						<Route path="vendors/:id" element={<ShopProducts />} />
-						<Route path="single-product/:id" element={<SingleProduct />} />
 						<Route path="checkout" element={<Checkout />} />
-						<Route path="cart" element={<Cart />} />
 					</Route>
+					<Route path="cart" element={<Cart />} />
 					<Route path="/login" element={<Login />} />
 					<Route path="/signup" element={<Signup />} />
 					<Route path="/signup-vendor" element={<SignUpVendor />} />
@@ -46,24 +48,14 @@ function App() {
 }
 
 const AuthWrapper = () => {
-	// const { isLoggedIn, user } = useAppContext();
-	// const navigate = useNavigate();
+	const { isLoggedIn, user } = useAppContext();
+	const navigate = useNavigate();
 
-	// useLayoutEffect(() => {
-	// 	if (!isLoggedIn || !user) return navigate("/login");
-	// }, []);
+	useEffect(() => {
+		if (!isLoggedIn || !user) return navigate("/login");
+	}, []);
 
 	return <Outlet />;
 };
-
-// const NoAuthWrapper = () => {
-// 	const { isLoggedIn, user } = useAppContext();
-// 	const navigate = useNavigate();
-
-// 	useLayoutEffect(() => {
-// 		if (!!isLoggedIn && !!user) return navigate("/");
-// 	}, []);
-// 	return <Outlet />;
-// };
 
 export default App;

@@ -2,18 +2,19 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { DebounceInput } from "react-debounce-input";
 import ReactPaginate from "react-paginate";
-import { Link, useSearchParams } from "react-router-dom";
-import { getShops } from "./api";
+import { Link, useParams, useSearchParams } from "react-router-dom";
+import { getProductsByCategory } from "./api";
 import { IMAGE_BASEURL } from "./constants";
 import Loader from "./Loader";
 
-function Shop() {
+function Category() {
+	const { id } = useParams();
 	const [searchParams, setSearchParams] = useSearchParams({ page: 1 });
 
 	const [filter, setFilter] = useState("");
 	const { data, isLoading } = useQuery(
-		["shops", filter, searchParams.get("page")],
-		() => getShops(filter, searchParams.get("page"))
+		["shops", id, filter, searchParams.get("page")],
+		() => getProductsByCategory(id, filter, searchParams.get("page"))
 	);
 
 	const handlePageClick = (event) => {
@@ -29,7 +30,7 @@ function Shop() {
 					<div className="row justify-content-center">
 						<div className="col-lg-6">
 							<div className="content text-center">
-								<h1 className="mb-3">Vendors</h1>
+								<h1 className="mb-3">{data?.category?.name}</h1>
 							</div>
 						</div>
 					</div>
@@ -43,7 +44,7 @@ function Shop() {
 							<div className="row align-items-center">
 								<div className="col-lg-12 mb-4 mb-lg-0">
 									<div className="section-title">
-										<h2 className="d-block text-left-sm">Vendors</h2>
+										{/* <h2 className="d-block text-left-sm">Vendors</h2> */}
 
 										<div className="heading d-flex justify-content-between mb-3">
 											{/* <p className="result-count mb-0">
@@ -72,17 +73,17 @@ function Shop() {
 								<Loader />
 							) : (
 								<div className="row">
-									{data?.shops?.map((shop, index) => (
+									{data?.products?.map((product, index) => (
 										<div
 											className="col-lg-4 col-12 col-md-6 col-sm-6 mb-5"
 											key={index}
 										>
 											<div className="product">
 												<div className="product-wrap">
-													<Link to={`/vendors/${shop._id}`}>
+													<Link to={`/product/${product._id}`}>
 														<img
-															className="img-fluid w-100 mb-3 imege"
-															src={`${IMAGE_BASEURL}${shop.logo?.logo?.bucket[0]}/${shop.logo?.logo?.key[0]}`}
+															className="img-fluid w-100 mb-3"
+															src={`${IMAGE_BASEURL}${product?.images?.multipleImages.bucket[0]}/${product?.images?.multipleImages.key[0]}`}
 															alt="product-img"
 														/>
 													</Link>
@@ -90,11 +91,13 @@ function Shop() {
 
 												<div className="product-info">
 													<h2 className="product-title h5 mb-0">
-														<Link to={`/vendors/${shop._id}`}>
-															{shop.userName}
+														<Link to={`/product/${product._id}`}>
+															{product.name}
 														</Link>
 													</h2>
-													<span className="price">{shop.email}</span>
+													<span className="price">
+														&#8358; {product.price.toLocaleString()}
+													</span>
 												</div>
 											</div>
 										</div>
@@ -128,4 +131,4 @@ function Shop() {
 		</div>
 	);
 }
-export default Shop;
+export default Category;

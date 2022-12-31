@@ -13,7 +13,7 @@ const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
-	config.headers["Authorization"] = `Bearer ${getFromStorage("token")}`;
+	config.headers["Authorization"] = `${getFromStorage("token")}`;
 	return config;
 }, undefined);
 
@@ -24,8 +24,9 @@ api.interceptors.response.use(
 			error.response.status === 401 ||
 			error.response.data.message === "401 Unauthorized"
 		) {
-			// localStorage.clear();
-			// window.location.reload();
+			localStorage.removeItem("token");
+			localStorage.removeItem("user");
+			window.location.reload();
 		}
 	}
 );
@@ -43,6 +44,38 @@ export const fetchAccountName = (accountNumber, bankCode) =>
 			}
 		});
 
-export const logIn = (data) => api.post("api/auth/local", data);
+export const logIn = (data) => api.post("auth/login", data);
 
-export const register = (data) => api.post("api/auth/register", data);
+export const register = (data) => api.post("auth/register", data);
+
+export const registerShop = (data) => api.post("auth/register/shop", data);
+
+export const getShops = (name, page) =>
+	api.get("shops", {
+		params: {
+			name,
+			page,
+		},
+	});
+
+export const getShopDetails = (id) => api.get(`shops/${id}`);
+
+export const getShopProducts = (id, name, page) =>
+	api.get(`products/store/${id}`, {
+		params: {
+			name,
+			page,
+		},
+	});
+
+export const getProductDetails = (id) => api.get(`products/${id}`);
+
+export const getProductsByCategory = (id, name, page) =>
+	api.get(`products/category/${id}`, {
+		params: {
+			name,
+			page,
+		},
+	});
+
+export const createOrder = (data) => api.post("orders", data);
