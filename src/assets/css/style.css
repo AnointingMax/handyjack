@@ -1983,12 +1983,15 @@ table.shop_table_responsive {
 
 .cat-item {
     position: relative;
+
 }
 
 .cat-item .item-info {
-    position: absolute;
-    right: 35px;
-    top: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 40px;
 }
 
 .cat-item .read-more {

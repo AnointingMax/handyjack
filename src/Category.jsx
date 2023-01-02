@@ -30,7 +30,7 @@ function Category() {
 					<div className="row justify-content-center">
 						<div className="col-lg-6">
 							<div className="content text-center">
-								<h1 className="mb-3">{data?.category?.name}</h1>
+								<h1 className="mb-3 text-capitalise">{data?.category?.name}</h1>
 							</div>
 						</div>
 					</div>
@@ -73,35 +73,41 @@ function Category() {
 								<Loader />
 							) : (
 								<div className="row">
-									{data?.products?.map((product, index) => (
-										<div
-											className="col-lg-4 col-12 col-md-6 col-sm-6 mb-5"
-											key={index}
-										>
-											<div className="product">
-												<div className="product-wrap">
-													<Link to={`/product/${product._id}`}>
-														<img
-															className="img-fluid w-100 mb-3"
-															src={`${IMAGE_BASEURL}${product?.images?.multipleImages.bucket[0]}/${product?.images?.multipleImages.key[0]}`}
-															alt="product-img"
-														/>
-													</Link>
-												</div>
-
-												<div className="product-info">
-													<h2 className="product-title h5 mb-0">
+									{!!data.products?.length ? (
+										data?.products?.map((product, index) => (
+											<div
+												className="col-lg-4 col-12 col-md-6 col-sm-6 mb-5"
+												key={index}
+											>
+												<div className="product">
+													<div className="product-wrap">
 														<Link to={`/product/${product._id}`}>
-															{product.name}
+															<img
+																className="img-fluid w-100 mb-3"
+																src={`${IMAGE_BASEURL}${product?.images?.multipleImages.bucket[0]}/${product?.images?.multipleImages.key[0]}`}
+																alt="product-img"
+															/>
 														</Link>
-													</h2>
-													<span className="price">
-														&#8358; {product.price.toLocaleString()}
-													</span>
+													</div>
+
+													<div className="product-info">
+														<h2 className="product-title h5 mb-0">
+															<Link to={`/product/${product._id}`}>
+																{product.name}
+															</Link>
+														</h2>
+														<span className="price">
+															&#8358; {product.price.toLocaleString()}
+														</span>
+													</div>
 												</div>
 											</div>
+										))
+									) : (
+										<div className="col-12 d-flex justify-content-center">
+											Nothing to see
 										</div>
-									))}
+									)}
 
 									<div className="col-12">
 										<ReactPaginate

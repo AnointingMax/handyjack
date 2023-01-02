@@ -70,6 +70,10 @@ export const getShopProducts = (id, name, page) =>
 		},
 	});
 
+export const getNewestProducts = () => api.get(`products`);
+
+export const getRandomCategories = () => api.get(`categories`);
+
 export const getProductDetails = (id) => api.get(`products/${id}`);
 
 export const getProductsByCategory = (id, name, page) =>

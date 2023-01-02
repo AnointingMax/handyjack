@@ -76,7 +76,7 @@ function ShopProducts() {
 									<>
 										{products.products.map((product, index) => (
 											<div
-												className="col-lg-4 col-12 col-md-6 col-sm-6 mb-5"
+												className="col-lg-4 col-12 col-md-6 col-sm-6"
 												key={index}
 											>
 												<div className="product">
