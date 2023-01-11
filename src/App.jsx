@@ -24,7 +24,7 @@ import { useEffect } from "react";
 function App() {
 	return (
 		<div className="App">
-			<BrowserRouter>
+			<BrowserRouter basename="/mp_frontend">
 				<Header />
 				<Routes>
 					<Route index element={<Home />} />
