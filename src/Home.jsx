@@ -1,14 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
-import { getNewestProducts, getRandomCategories } from "./api";
+import {
+	getNewestProducts,
+	// getRandomCategories
+} from "./api";
 import { IMAGE_BASEURL } from "./constants";
 import Loader from "./Loader";
 
 function Home() {
-	const { data: categories, isLoading: isCategoriesLoading } = useQuery(
-		["categories"],
-		() => getRandomCategories()
-	);
+	// const { data: categories, isLoading: isCategoriesLoading } = useQuery(
+	// 	["categories"],
+	// 	() => getRandomCategories()
+	// );
 
 	const { data: products, isLoading: isProductsLoading } = useQuery(
 		["newest"],
@@ -43,7 +46,7 @@ function Home() {
 					</div>
 				</div>
 			</div>
-			<section className="category section pb-4">
+			{/* <section className="category section pb-4">
 				<div className="container">
 					<div className="row justify-content-center">
 						<div className="col-lg-8">
@@ -80,7 +83,7 @@ function Home() {
 						)}
 					</div>
 				</div>
-			</section>
+			</section> */}
 
 			<section className="section products-main">
 				<div className="container">

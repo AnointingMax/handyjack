@@ -2293,6 +2293,12 @@ table.shop_table_responsive {
 .imege {
     width: 100%;
     aspect-ratio: 1;
+    object-fit: cover;
+}
+
+.imege-2 {
+    width: 40%;
+    aspect-ratio: 1;
     object-fit: contain;
 }
 

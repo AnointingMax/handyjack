@@ -79,6 +79,11 @@ function Header() {
 										</li>
 									</ul>
 								</li>
+								<li className="nav-item active">
+									<a className="nav-link" href="http://localhost:8000/admin">
+										Admin
+									</a>
+								</li>
 							</>
 						)}
 					</ul>

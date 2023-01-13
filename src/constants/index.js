@@ -140,3 +140,5 @@ export const IMAGE_BASEURL =
 	import.meta.env.MODE === "development"
 		? `${import.meta.env.VITE_LOCAL_BASEURL}`
 		: `${import.meta.env.VITE_PROD_BASEURL}`;
+
+export const convertToURL = (string) => string.split(" ").join("-");

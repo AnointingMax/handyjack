@@ -4,7 +4,7 @@ import { DebounceInput } from "react-debounce-input";
 import ReactPaginate from "react-paginate";
 import { Link, useSearchParams } from "react-router-dom";
 import { getShops } from "./api";
-import { IMAGE_BASEURL } from "./constants";
+import { convertToURL, IMAGE_BASEURL } from "./constants";
 import Loader from "./Loader";
 
 function Shop() {
@@ -43,13 +43,7 @@ function Shop() {
 							<div className="row align-items-center">
 								<div className="col-lg-12 mb-4 mb-lg-0">
 									<div className="section-title">
-										<h2 className="d-block text-left-sm">Vendors</h2>
-
 										<div className="heading d-flex justify-content-between mb-3">
-											{/* <p className="result-count mb-0">
-												{" "}
-												Showing 1–6 of 17 results
-											</p> */}
 											<form className="ordering ml-auto" method="get">
 												<div className="form-group mb-4">
 													<DebounceInput
@@ -79,7 +73,7 @@ function Shop() {
 										>
 											<div className="product">
 												<div className="product-wrap">
-													<Link to={`/vendors/${shop._id}`}>
+													<Link to={`/vendors/${convertToURL(shop.userName)}`}>
 														<img
 															className="img-fluid w-100 mb-3 imege"
 															src={`${IMAGE_BASEURL}${shop.logo?.logo?.bucket[0]}/${shop.logo?.logo?.key[0]}`}
@@ -90,7 +84,9 @@ function Shop() {
 
 												<div className="product-info">
 													<h2 className="product-title h5 mb-0">
-														<Link to={`/vendors/${shop._id}`}>
+														<Link
+															to={`/vendors/${convertToURL(shop.userName)}`}
+														>
 															{shop.userName}
 														</Link>
 													</h2>

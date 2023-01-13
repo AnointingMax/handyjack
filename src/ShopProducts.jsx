@@ -5,6 +5,7 @@ import { Link, useParams, useSearchParams } from "react-router-dom";
 import { getShopDetails, getShopProducts } from "./api";
 import { IMAGE_BASEURL } from "./constants";
 import Loader from "./Loader";
+import defaultIMG from "./assets/images/adsv.jpg";
 
 function ShopProducts() {
 	const { id } = useParams();
@@ -27,13 +28,20 @@ function ShopProducts() {
 
 	return (
 		<div className="shop-container">
-			<section className="page-header">
+			<section className="page-header" style={{ paddingBlock: 30 }}>
 				<div className="overly"></div>
 				<div className="container">
 					<div className="row justify-content-center">
 						<div className="col-lg-6">
-							<div className="content text-center">
-								<h1 className="mb-3">{data?.userName}</h1>
+							<div className="d-flex flex-column align-items-center">
+								<div className="d-flex gap-2 justify-content-center align-items-center">
+									<img
+										className="img-fluid imege-2"
+										src={`${IMAGE_BASEURL}${data.logo?.logo?.bucket[0]}/${data.logo?.logo?.key[0]}`}
+										alt="product-img"
+									/>
+									<h1 className="mb-3">{data?.userName}</h1>
+								</div>
 								<div dangerouslySetInnerHTML={{ __html: data?.description }} />
 							</div>
 						</div>
@@ -41,21 +49,16 @@ function ShopProducts() {
 				</div>
 			</section>
 
-			<section className="products-shop section">
+			<section className="products-shop section" style={{ paddingTop: 40 }}>
 				<div className="container">
 					<div className="row">
 						<div className="col-md-12">
 							<div className="row align-items-center">
-								<div className="col-lg-12 mb-4 mb-lg-0">
+								<div className="col-lg-12 mb-lg-0">
 									<div className="section-title">
-										<h2 className="d-block text-left-sm">Vendors</h2>
-
-										<div className="heading d-flex justify-content-between mb-3">
-											{/* <p className="result-count mb-0">
-												Showing 1–6 of 17 results
-											</p> */}
+										<div className="heading d-flex justify-content-between">
 											<form className="ordering ml-auto" method="get">
-												<div className="form-group mb-4">
+												<div className="form-group">
 													<input
 														type="text"
 														className="form-control"
@@ -84,7 +87,11 @@ function ShopProducts() {
 														<Link to={`/product/${product._id}`}>
 															<img
 																className="img-fluid w-100 mb-3 imege"
-																src={`${IMAGE_BASEURL}${product.images.multipleImages.bucket[0]}/${product.images.multipleImages.key[0]}`}
+																src={
+																	product.images
+																		? `${IMAGE_BASEURL}${product.images?.multipleImages.bucket[0]}/${product.images?.multipleImages.key[0]}`
+																		: defaultIMG
+																}
 																alt="product-img"
 															/>
 														</Link>

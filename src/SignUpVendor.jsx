@@ -23,7 +23,7 @@ function SignUpVendor() {
 		email: Yup.string()
 			.email("Please provide a valid email")
 			.required("Email is required"),
-		userName: Yup.string().required("Username is required"),
+		userName: Yup.string().required("Shop name is required"),
 		phone: Yup.string()
 			.length(11, "Please provide a valid phone number")
 			.required("Phone number is required"),
@@ -87,11 +87,11 @@ function SignUpVendor() {
 													/>
 												</div>
 												<div className="form-group mb-4">
-													<label>Enter Username</label>
+													<label>Enter Shop name</label>
 													<input
 														type="text"
 														className="form-control"
-														placeholder="Enter Username"
+														placeholder="Enter Shop name"
 														name="userName"
 														value={values.userName}
 														onChange={handleChange}
