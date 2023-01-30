@@ -6,6 +6,7 @@ import {
 } from "./api";
 import { IMAGE_BASEURL } from "./constants";
 import Loader from "./Loader";
+import hero from "./assets/images/slideshow1-2.jpg";
 
 function Home() {
 	// const { data: categories, isLoading: isCategoriesLoading } = useQuery(
@@ -24,7 +25,7 @@ function Home() {
 				<div
 					className="slider-item"
 					style={{
-						backgroundImage: "url('assets/images/slideshow1-2.jpg')",
+						backgroundImage: `url(${hero})`,
 						backgroundPosition: "50%",
 						backgroundRepeat: "no-repeat",
 					}}
@@ -111,7 +112,7 @@ function Home() {
 												<Link to={`/product/${product._id}`}>
 													<img
 														className="img-fluid w-100 mb-3 imege"
-														src={`${IMAGE_BASEURL}${product.images.multipleImages.bucket[0]}/${product.images.multipleImages.key[0]}`}
+														src={`${IMAGE_BASEURL}${product.images.bucket[0]}/${product.images.key[0]}`}
 														alt="product-img"
 													/>
 												</Link>

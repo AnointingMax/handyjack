@@ -31,13 +31,13 @@ function SingleProduct() {
 									id="single-product-slider"
 								>
 									<div className="carousel-inner">
-										{data?.images?.multipleImages?.key.map((_, index) => (
+										{data?.images?.key.map((_, index) => (
 											<div
 												className={`carousel-item ${index === 0 && "active"}`}
 												key={index}
 											>
 												<img
-													src={`${IMAGE_BASEURL}${data?.images?.multipleImages.bucket[index]}/${data?.images?.multipleImages.key[index]}`}
+													src={`${IMAGE_BASEURL}${data?.images?.bucket[index]}/${data?.images?.key[index]}`}
 													alt={`product-${index}`}
 													className="img-fluid"
 												/>
@@ -46,7 +46,7 @@ function SingleProduct() {
 									</div>
 
 									<ol className="carousel-indicators">
-										{data?.images?.multipleImages?.key.map((_, index) => (
+										{data?.images?.key.map((_, index) => (
 											<li
 												data-target="#single-product-slider"
 												data-slide-to={index}
@@ -54,7 +54,7 @@ function SingleProduct() {
 												className="active"
 											>
 												<img
-													src={`${IMAGE_BASEURL}${data?.images?.multipleImages.bucket[index]}/${data?.images?.multipleImages.key[index]}`}
+													src={`${IMAGE_BASEURL}${data?.images?.bucket[index]}/${data?.images?.key[index]}`}
 													alt={`product-indicator-${index}`}
 													className="img-fluid"
 												/>

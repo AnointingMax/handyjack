@@ -76,7 +76,7 @@ function Shop() {
 													<Link to={`/vendors/${convertToURL(shop.userName)}`}>
 														<img
 															className="img-fluid w-100 mb-3 imege"
-															src={`${IMAGE_BASEURL}${shop.logo?.logo?.bucket[0]}/${shop.logo?.logo?.key[0]}`}
+															src={`${IMAGE_BASEURL}${shop.logo?.bucket[0]}/${shop.logo?.key[0]}`}
 															alt="product-img"
 														/>
 													</Link>

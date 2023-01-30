@@ -6,17 +6,20 @@ import { getShopDetails, getShopProducts } from "./api";
 import { IMAGE_BASEURL } from "./constants";
 import Loader from "./Loader";
 import defaultIMG from "./assets/images/adsv.jpg";
+import { DebounceInput } from "react-debounce-input";
 
 function ShopProducts() {
 	const { id } = useParams();
 	const [searchParams, setSearchParams] = useSearchParams({ page: 1 });
 
+	const page = searchParams.get("page");
+
 	const [filter, setFilter] = useState("");
 
 	const { data, isLoading } = useQuery(["shop", id], () => getShopDetails(id));
 	const { data: products, isLoading: isProductsLoading } = useQuery(
-		["shop-products", id, filter, searchParams.get("page")],
-		() => getShopProducts(id, filter, searchParams.get("page"))
+		["shop-products", id, filter, page],
+		() => getShopProducts(id, filter, page)
 	);
 
 	const handlePageClick = (event) => {
@@ -37,7 +40,7 @@ function ShopProducts() {
 								<div className="d-flex gap-2 justify-content-center align-items-center">
 									<img
 										className="img-fluid imege-2"
-										src={`${IMAGE_BASEURL}${data.logo?.logo?.bucket[0]}/${data.logo?.logo?.key[0]}`}
+										src={`${IMAGE_BASEURL}${data.logo?.bucket[0]}/${data.logo?.key[0]}`}
 										alt="product-img"
 									/>
 									<h1 className="mb-3">{data?.userName}</h1>
@@ -59,13 +62,14 @@ function ShopProducts() {
 										<div className="heading d-flex justify-content-between">
 											<form className="ordering ml-auto" method="get">
 												<div className="form-group">
-													<input
+													<DebounceInput
 														type="text"
-														className="form-control"
 														placeholder="Filter"
+														className="form-control"
 														name="filter"
 														value={filter}
 														onChange={(event) => setFilter(event.target.value)}
+														debounceTimeout={700}
 													/>
 												</div>
 											</form>
@@ -89,7 +93,7 @@ function ShopProducts() {
 																className="img-fluid w-100 mb-3 imege"
 																src={
 																	product.images
-																		? `${IMAGE_BASEURL}${product.images?.multipleImages.bucket[0]}/${product.images?.multipleImages.key[0]}`
+																		? `${IMAGE_BASEURL}${product.images?.bucket[0]}/${product.images?.key[0]}`
 																		: defaultIMG
 																}
 																alt="product-img"

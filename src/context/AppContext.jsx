@@ -6,7 +6,12 @@ import {
 	useReducer,
 	useState,
 } from "react";
-import { fireSwalError, getFromStorage, setToStorage } from "../constants";
+import {
+	fireSwalError,
+	fireSwalSuccess,
+	getFromStorage,
+	setToStorage,
+} from "../constants";
 
 const AppContext = createContext();
 
@@ -49,6 +54,8 @@ const AppProvider = ({ children }) => {
 				if (!state.cart.length) {
 					stateCopy = { ...stateCopy, store: action.payload.product.store };
 				}
+
+				fireSwalSuccess("Item added to cart");
 
 				return stateCopy;
 

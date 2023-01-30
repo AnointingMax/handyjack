@@ -84,7 +84,7 @@ function Category() {
 														<Link to={`/product/${product._id}`}>
 															<img
 																className="img-fluid w-100 mb-3"
-																src={`${IMAGE_BASEURL}${product?.images?.multipleImages.bucket[0]}/${product?.images?.multipleImages.key[0]}`}
+																src={`${IMAGE_BASEURL}${product?.images?.bucket[0]}/${product?.images?.key[0]}`}
 																alt="product-img"
 															/>
 														</Link>

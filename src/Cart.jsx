@@ -60,7 +60,7 @@ function Cart() {
 													>
 														<Link to={`/product/${product._id}`}>
 															<img
-																src={`${IMAGE_BASEURL}${product?.images?.multipleImages.bucket[0]}/${product?.images?.multipleImages.key[0]}`}
+																src={`${IMAGE_BASEURL}${product?.images?.bucket[0]}/${product?.images?.key[0]}`}
 																className="attachment-woocommerce_thumbnail size-woocommerce_thumbnail"
 																alt=""
 															/>

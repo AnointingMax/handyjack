@@ -112,7 +112,7 @@ function Header() {
 										>
 											<img
 												className="media-object img- mr-3"
-												src={`${IMAGE_BASEURL}${product?.images?.multipleImages.bucket[0]}/${product?.images?.multipleImages.key[0]}`}
+												src={`${IMAGE_BASEURL}${product?.images?.bucket[0]}/${product?.images?.key[0]}`}
 												alt="image"
 											/>
 
