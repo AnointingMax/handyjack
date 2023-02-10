@@ -6,7 +6,7 @@ import { register } from "./api";
 import { fireSwalSuccess } from "./constants";
 import { useAppContext } from "./context/AppContext";
 
-function SignUp() {
+const SignUp = () => {
 	const navigate = useNavigate();
 	const { isLoggedIn } = useAppContext();
 
@@ -167,5 +167,5 @@ function SignUp() {
 			</div>
 		</div>
 	);
-}
+};
 export default SignUp;

@@ -6,7 +6,7 @@ import SingleProduct from "./SingleProduct";
 import Checkout from "./Checkout";
 import Cart from "./Cart";
 import Login from "./Login";
-import Signup from "./Signup";
+import SignUp from "./SignUp";
 import SignUpVendor from "./SignUpVendor";
 import ForgotPassword from "./ForgotPassword";
 import {
@@ -24,7 +24,7 @@ import { useEffect } from "react";
 function App() {
 	return (
 		<div className="App">
-			<BrowserRouter basename="/mp_frontend">
+			<BrowserRouter>
 				<Header />
 				<Routes>
 					<Route index element={<Home />} />
@@ -37,7 +37,7 @@ function App() {
 					</Route>
 					<Route path="cart" element={<Cart />} />
 					<Route path="/login" element={<Login />} />
-					<Route path="/signup" element={<Signup />} />
+					<Route path="/signup" element={<SignUp />} />
 					<Route path="/signup-vendor" element={<SignUpVendor />} />
 					<Route path="/forgot-password" element={<ForgotPassword />} />
 				</Routes>

@@ -137,8 +137,8 @@ export const fireSwalMessage = () => {
 };
 
 export const IMAGE_BASEURL =
-	import.meta.env.MODE === "development"
-		? `${import.meta.env.VITE_LOCAL_BASEURL}`
-		: `${import.meta.env.VITE_PROD_BASEURL}`;
+	process.env.NODE_ENV === "development"
+		? `${process.env.REACT_APP_LOCAL_BASEURL}`
+		: `${process.env.REACT_APP_PROD_BASEURL}`;
 
 export const convertToURL = (string) => string.split(" ").join("-");

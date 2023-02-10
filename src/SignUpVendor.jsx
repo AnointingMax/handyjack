@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { fetchAccountName, registerShop } from "./api";
-import { banks, fireSwalError, fireSwalMessage } from "./constants";
+import { banks, fireSwalMessage } from "./constants";
 
 function SignUpVendor() {
 	const navigate = useNavigate();

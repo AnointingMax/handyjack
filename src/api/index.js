@@ -3,9 +3,9 @@ import { fireSwalError, getFromStorage } from "../constants";
 
 const api = axios.create({
 	baseURL:
-		import.meta.env.MODE === "development"
-			? `${import.meta.env.VITE_LOCAL_BASEURL}`
-			: `${import.meta.env.VITE_PROD_BASEURL}`,
+		process.env.NODE_ENV === "development"
+			? `${process.env.REACT_APP_LOCAL_BASEURL}`
+			: `${process.env.REACT_APP_PROD_BASEURL}`,
 	headers: {
 		Accept: "application/json",
 		"Content-Type": "application/json",
